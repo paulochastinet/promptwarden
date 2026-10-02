@@ -563,6 +563,15 @@ New rules, false-positive reports and fixtures are very welcome — see [CONTRIB
 (adding a rule takes ~15 minutes: metadata, detector, a `bad` + `good` fixture, `npm run docs`).
 Security issues in promptwarden itself: see [SECURITY.md](SECURITY.md).
 
+## Part of a toolkit
+
+`promptwarden` is one of four small, single-purpose CLIs for people building with AI agents:
+
+- [**context-diet**](https://github.com/paulochastinet/context-diet): see what your coding agent loads before you type a word (instruction files, skills, MCP tool schemas) and how many tokens it costs.
+- **promptwarden** (this repo): scan agent skills, rules and MCP configs for prompt injection, hidden Unicode, exfiltration and secrets.
+- [**mcp-diff**](https://github.com/paulochastinet/mcp-diff): catch breaking and risky changes in MCP servers before your users' agents do.
+- [**agentperms**](https://github.com/paulochastinet/agentperms): one permission policy for Claude Code, Codex, Gemini CLI and Cursor, plus an audit of risky grants.
+
 ## License
 
 [MIT](LICENSE) © 2026 Paulo Chastinet
