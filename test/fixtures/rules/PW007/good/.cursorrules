@@ -1,0 +1,3 @@
+Never push without asking the user first.
+Don't tell the user to restart their machine; find the root cause.
+Retry logic that gives up without informing the user is a bug.

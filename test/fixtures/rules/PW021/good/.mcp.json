@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "db": {
+      "command": "db-mcp",
+      "env": {
+        "DB_PASSWORD": "${DB_PASSWORD}",
+        "API_KEY_PATH": "/etc/key.pem",
+        "AUTH_MODE": "oauth"
+      }
+    },
+    "api": {
+      "type": "http",
+      "url": "https://api.example.invalid/mcp",
+      "headers": {
+        "Authorization": "Bearer ${API_TOKEN}"
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "name": "promptwarden",
+  "version": "0.1.0",
+  "description": "Security scanner for AI agent skills, rules and MCP configs. Detects prompt injection, hidden Unicode, malicious commands, exfiltration, secrets and risky permissions. Text, JSON and SARIF output.",
+  "type": "module",
+  "bin": {
+    "promptwarden": "dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18.18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepare": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "docs": "tsup && node scripts/gen-docs.mjs",
+    "scan:examples": "node dist/cli.js examples --fail-on none",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
+  "keywords": [
+    "ai-security",
+    "prompt-injection",
+    "mcp",
+    "claude-code",
+    "agent-skills",
+    "cursor",
+    "codex",
+    "sarif",
+    "supply-chain-security",
+    "llm",
+    "security-scanner",
+    "gemini-cli",
+    "copilot",
+    "static-analysis"
+  ],
+  "author": "Paulo Chastinet (https://github.com/paulochastinet)",
+  "license": "MIT",
+  "homepage": "https://github.com/paulochastinet/promptwarden#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulochastinet/promptwarden.git"
+  },
+  "bugs": {
+    "url": "https://github.com/paulochastinet/promptwarden/issues"
+  },
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "jsonc-parser": "^3.3.1",
+    "picocolors": "^1.1.1",
+    "smol-toml": "^1.4.2",
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

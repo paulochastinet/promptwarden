@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "gh": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--privileged",
+        "--network=host",
+        "-v",
+        "/:/host",
+        "img"
+      ]
+    }
+  }
+}

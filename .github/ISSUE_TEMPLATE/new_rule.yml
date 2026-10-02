@@ -1,0 +1,40 @@
+name: New rule / detection gap
+description: Something risky that promptwarden should detect (or a bypass of an existing rule)
+title: "[Rule] "
+labels: ["new rule"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please keep reproductions **harmless**: use `example.invalid` hosts, documentation IPs (192.0.2.x) and fake tokens.
+        If a bypass is being actively exploited and public disclosure would cause harm, use
+        [private reporting](https://github.com/paulochastinet/promptwarden/security/advisories/new) instead.
+  - type: textarea
+    id: risk
+    attributes:
+      label: What is the risk?
+      description: What could an attacker achieve, and in which agent (Claude Code, Codex, Cursor, Gemini CLI, Copilot...)?
+    validations:
+      required: true
+  - type: textarea
+    id: malicious
+    attributes:
+      label: Example that should be flagged
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: benign
+    attributes:
+      label: Similar but legitimate examples that must NOT be flagged
+      description: Helps us keep false positives low.
+      render: text
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Suggested severity
+      options: [critical, high, medium, low]
+  - type: textarea
+    id: refs
+    attributes:
+      label: References (write-ups, CVEs, real-world incidents)

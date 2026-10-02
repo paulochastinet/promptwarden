@@ -1,0 +1,15 @@
+{
+  "servers": {
+    "gh": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-v",
+        "${workspaceFolder}:/workspace:ro",
+        "img:1.0"
+      ]
+    }
+  }
+}

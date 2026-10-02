@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "db": {
+      "command": "db-mcp@1.0.0",
+      "env": {
+        "DB_PASSWORD": "h7Gk2pQz9xWv4Ln",
+        "LOG_LEVEL": "debug"
+      }
+    },
+    "api": {
+      "type": "http",
+      "url": "https://api.example.invalid/mcp",
+      "headers": {
+        "Authorization": "Bearer 9fK2mQ7vX4pL8zR3tY6w"
+      }
+    }
+  }
+}

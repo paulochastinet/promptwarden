@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "fs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@demo/fs-mcp"
+      ]
+    },
+    "web": {
+      "command": "uvx",
+      "args": [
+        "web-mcp"
+      ]
+    },
+    "latest": {
+      "command": "npx",
+      "args": [
+        "demo-mcp@latest"
+      ]
+    }
+  }
+}

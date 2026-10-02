@@ -1,0 +1,84 @@
+name: 'promptwarden'
+description: 'Scan AI agent skills, rules and MCP configs for prompt injection, hidden Unicode, malicious commands, exfiltration and secrets.'
+author: 'Paulo Chastinet'
+branding:
+  icon: 'shield'
+  color: 'red'
+
+inputs:
+  path:
+    description: 'Space-separated files or directories to scan.'
+    required: false
+    default: '.'
+  fail-on:
+    description: 'Fail the step if a finding is at or above this severity: critical | high | medium | low | none.'
+    required: false
+    default: 'high'
+  upload-sarif:
+    description: 'Upload results to GitHub code scanning (needs `security-events: write`).'
+    required: false
+    default: 'true'
+  sarif-file:
+    description: 'Where to write the SARIF report.'
+    required: false
+    default: 'promptwarden.sarif'
+  category:
+    description: 'Code scanning category (useful when running several scans).'
+    required: false
+    default: 'promptwarden'
+  args:
+    description: 'Extra CLI arguments, e.g. "--all-md --ignore docs/** --disable PW028".'
+    required: false
+    default: ''
+
+outputs:
+  sarif-file:
+    description: 'Path to the SARIF report.'
+    value: ${{ steps.scan.outputs.sarif-file }}
+  findings:
+    description: 'Total number of findings.'
+    value: ${{ steps.scan.outputs.findings }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install promptwarden
+      shell: bash
+      run: |
+        cd "$GITHUB_ACTION_PATH"
+        npm ci --no-audit --no-fund --loglevel=error
+
+    - name: Scan
+      id: scan
+      shell: bash
+      env:
+        PW_PATHS: ${{ inputs.path }}
+        PW_ARGS: ${{ inputs.args }}
+        PW_SARIF: ${{ inputs.sarif-file }}
+      run: |
+        PW="$GITHUB_ACTION_PATH/dist/cli.js"
+        # shellcheck disable=SC2086
+        node "$PW" $PW_PATHS $PW_ARGS --format sarif --output "$PW_SARIF" --fail-on none
+        # shellcheck disable=SC2086
+        node "$PW" $PW_PATHS $PW_ARGS --format markdown --fail-on none >> "$GITHUB_STEP_SUMMARY" || true
+        count=$(node -e "console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).runs[0].results.length)" "$PW_SARIF")
+        echo "sarif-file=$PW_SARIF" >> "$GITHUB_OUTPUT"
+        echo "findings=$count" >> "$GITHUB_OUTPUT"
+
+    - name: Upload SARIF to code scanning
+      if: ${{ always() && inputs.upload-sarif == 'true' }}
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ inputs.sarif-file }}
+        category: ${{ inputs.category }}
+
+    - name: Report and enforce --fail-on
+      shell: bash
+      env:
+        PW_PATHS: ${{ inputs.path }}
+        PW_ARGS: ${{ inputs.args }}
+        PW_FAIL_ON: ${{ inputs.fail-on }}
+        FORCE_COLOR: '1'
+      run: |
+        # shellcheck disable=SC2086
+        node "$GITHUB_ACTION_PATH/dist/cli.js" $PW_PATHS $PW_ARGS --fail-on "$PW_FAIL_ON"

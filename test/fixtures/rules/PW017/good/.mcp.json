@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "gh": {
+      "command": "gh-mcp",
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "OPENAI_API_KEY": "sk-your-key-here-xxxxxxxxxxxxxxxxxxxxxxxx",
+        "AWS_ACCESS_KEY_ID": "AKIAIOSFODNN7EXAMPLE"
+      }
+    }
+  }
+}

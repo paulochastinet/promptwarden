@@ -1,0 +1,3 @@
+# Intentionally malicious test fixtures and demos (scanned explicitly by tests and CI)
+test/fixtures/
+examples/

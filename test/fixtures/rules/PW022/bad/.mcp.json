@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "a": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "github:someone/mcp-server"
+      ]
+    },
+    "b": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/someone/b",
+        "b"
+      ]
+    }
+  }
+}

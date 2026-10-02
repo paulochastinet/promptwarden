@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "gh": {
+      "command": "gh-mcp",
+      "env": {
+        "GITHUB_TOKEN": "ghp_Zx9Kq2Lm8Np4Rt6Vw1Yb3Cd5Fg7Hj0Ks2Ld4M",
+        "AWS_ACCESS_KEY_ID": "AKIAQ3VZT7XW2LMN8PRS"
+      }
+    }
+  }
+}

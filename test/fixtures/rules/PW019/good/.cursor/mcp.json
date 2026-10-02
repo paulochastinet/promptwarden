@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "remote": {
+      "url": "https://mcp.example.invalid/sse"
+    },
+    "local": {
+      "url": "http://localhost:3333/mcp"
+    },
+    "lan": {
+      "url": "http://127.0.0.1:8080"
+    }
+  }
+}

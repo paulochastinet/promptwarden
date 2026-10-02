@@ -1,0 +1,25 @@
+name: Bug report
+description: Crash, wrong output, wrong exit code, broken SARIF...
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Command and minimal reproduction
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+  - type: input
+    id: env
+    attributes:
+      label: promptwarden version, Node.js version, OS

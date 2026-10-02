@@ -1,0 +1,39 @@
+name: False positive
+description: promptwarden flagged something that is safe
+title: "[FP] PW0xx: "
+labels: ["false positive"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! False positives are bugs — low noise is a core goal. **Redact secrets and private URLs.**
+  - type: input
+    id: rule
+    attributes:
+      label: Rule id
+      placeholder: PW009
+    validations:
+      required: true
+  - type: textarea
+    id: snippet
+    attributes:
+      label: Minimal snippet that triggers it
+      description: The smallest file content that reproduces the finding, and the file name (e.g. `CLAUDE.md`, `.mcp.json`).
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is this safe?
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: promptwarden output
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: promptwarden version (`promptwarden --version`) and Node.js version

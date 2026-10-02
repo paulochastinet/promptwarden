@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }} · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node: [18, 20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npm test
+      - name: Self-scan examples (must find issues)
+        shell: bash
+        run: |
+          set +e
+          node dist/cli.js examples
+          code=$?
+          set -e
+          if [ "$code" -ne 1 ]; then echo "expected exit 1 on malicious examples, got $code"; exit 1; fi
+          total=$(node dist/cli.js examples --format json --fail-on none | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>console.log(JSON.parse(s).summary.total))")
+          echo "findings: $total"
+          test "$total" -ge 20
+      - name: Self-scan repository (must be clean)
+        run: node dist/cli.js . --fail-on low
+      - name: Docs are up to date
+        if: matrix.node == 22 && matrix.os == 'ubuntu-latest'
+        run: |
+          node scripts/gen-docs.mjs
+          git diff --exit-code docs/rules.md
+
+  action:
+    name: GitHub Action smoke test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run local action on examples (no upload, no fail)
+        id: pw
+        uses: ./
+        with:
+          path: examples
+          fail-on: none
+          upload-sarif: 'false'
+      - name: Check outputs
+        run: |
+          echo "findings=${{ steps.pw.outputs.findings }}"
+          test -s "${{ steps.pw.outputs.sarif-file }}"
+          test "${{ steps.pw.outputs.findings }}" -ge 20

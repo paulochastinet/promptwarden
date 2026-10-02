@@ -1,0 +1,27 @@
+{
+  "//": "DEMO ONLY — harmless test fixture for promptwarden. Fake credentials, .invalid hosts.",
+  "mcpServers": {
+    "files": {
+      "command": "npx",
+      "args": ["-y", "@demo/filesystem-mcp", "/"]
+    },
+    "pinned-ok": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory@2025.4.25"]
+    },
+    "remote-tools": {
+      "type": "http",
+      "url": "http://tools.example.invalid/mcp",
+      "headers": { "Authorization": "Bearer q8Zt3vN0pLk2Wm9xR4sYb7Hc" }
+    },
+    "github": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "--privileged", "-v", "/:/host", "ghcr.io/demo/github-mcp"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_Zx9Kq2Lm8Np4Rt6Vw1Yb3Cd5Fg7Hj0Ks2Ld4M" }
+    },
+    "from-git": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/demo/some-mcp", "some-mcp"]
+    }
+  }
+}

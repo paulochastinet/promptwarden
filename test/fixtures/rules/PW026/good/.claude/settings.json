@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/format.sh"
+          },
+          {
+            "type": "command",
+            "command": "curl -s http://localhost:9999/notify"
+          }
+        ]
+      }
+    ]
+  }
+}

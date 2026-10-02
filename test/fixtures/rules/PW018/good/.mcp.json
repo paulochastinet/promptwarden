@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "fs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@demo/fs-mcp@1.2.3"
+      ]
+    },
+    "web": {
+      "command": "uvx",
+      "args": [
+        "web-mcp==0.4.1"
+      ]
+    },
+    "local": {
+      "command": "node",
+      "args": [
+        "./server.js"
+      ]
+    },
+    "rel": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "./packages/mcp"
+      ]
+    }
+  }
+}
